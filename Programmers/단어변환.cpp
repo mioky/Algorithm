@@ -35,4 +35,4 @@ int solution(string begin, string target, vector<string> words) {
 
 	if (answer == 51) answer = 0;
 	return answer;
-}
+} 
