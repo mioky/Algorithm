@@ -1,8 +1,19 @@
+/* 2020.08.31
+ *
+ * BOJ 17779
+ * Completed!
+ * 
+ * 구역의 조건을 코드화로 시키면 끝!
+ * 조건이 복잡하니 실수하지 않도록 유의!
+ *
+ * Memory : 1112 KB
+ * Time   : 16 ms
+ */
+
 #include <cstdio>
-//int x, y, d1, d2;
 int A[21][21];
 int N;
-int count[6]; //���ű� �ο�
+int count[6]; 
 bool five[21][21] = { false };
 int real_min = 10000000;
 int _max;
