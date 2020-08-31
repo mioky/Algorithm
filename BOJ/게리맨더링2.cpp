@@ -18,7 +18,7 @@ bool five[21][21] = { false };
 int real_min = 10000000;
 int _max;
 int _min;
-
+ 
 int main() {
 	scanf("%d", &N);
 	for (int i = 1; i <= N; i++) {
