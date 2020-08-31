@@ -11,6 +11,7 @@
  */
 
 #include <cstdio>
+
 int A[21][21];
 int N;
 int count[6]; 
