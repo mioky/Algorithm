@@ -11,7 +11,7 @@
  * Memory : 1224 KB
  * Time   : 8 ms
  */
-
+ 
 #include <cstdio>
 #include <algorithm>
 #include <vector>
