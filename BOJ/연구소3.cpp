@@ -1,3 +1,17 @@
+  
+/* 2020.08.31
+ *
+ * BOJ 17142
+ * Completed!
+ * 
+ * BFSë¡œ ë°”ì´ëŸ¬ìŠ¤ë¥¼ í™•ì‚°ì‹œí‚¤ê³ , DFSë¡œ í™œì„±í™” ì‹œí‚¬ ë°”ì´ëŸ¬ìŠ¤ ì„ íƒ
+ * 3ì°¨ì› ë°°ì—´ì„ ì‚¬ìš©í•´ì„œ ê° ë°”ì´ëŸ¬ìŠ¤ê°€ í™œì„±í™”ë˜ì—ˆì„ ë•Œë¥¼ í‘œí˜„!
+ * ë§¤ìš° ì–´ë ¤ì› ë‹¤.....
+ *
+ * Memory : 1224 KB
+ * Time   : 8 ms
+ */
+ 
 #include <cstdio>
 #include <algorithm>
 #include <vector>
@@ -5,21 +19,21 @@
 using namespace std;
 
 int dfs(int pol[][50][50], int n, int m, int v, int depth, int len, int sel[]) { //depth = 0, len =0
-	if (len == m) { //¹ÙÀÌ·¯½º ¼±ÅÃÀÌ ´Ù µÇ¾ú´Ù¸é
+	if (len == m) { //ë°”ì´ëŸ¬ìŠ¤ ì„ íƒì´ ë‹¤ ë˜ì—ˆë‹¤ë©´
 		int r = 0;
 		for (int i = 0; i<n; i++) {
 			for (int j = 0; j<n; j++) {
 				int tmp = 10000;
-				for (int k = 0; k<m; k++) { //¼±ÅÃ ¹ÙÀÌ·¯½º °¹¼ö
-					if (pol[sel[k]][i][j] != 0) //sel[k]¹øÂ° ¹ÙÀÌ·¯½ºÀÇ À§Ä¡°¡ º®, ¹ÙÀÌ·¯½º, ¹ÙÀÌ·¯½º ÆÛÁø ½Ã°£
+				for (int k = 0; k<m; k++) { //ì„ íƒ ë°”ì´ëŸ¬ìŠ¤ ê°¯ìˆ˜
+					if (pol[sel[k]][i][j] != 0) //sel[k]ë²ˆì§¸ ë°”ì´ëŸ¬ìŠ¤ì˜ ìœ„ì¹˜ê°€ ë²½, ë°”ì´ëŸ¬ìŠ¤, ë°”ì´ëŸ¬ìŠ¤ í¼ì§„ ì‹œê°„
 						tmp = min(tmp, pol[sel[k]][i][j]);
 				}
-				r = max(r, tmp); //À§ if¹®¿¡ ¾È µé¾î°¡¸é tmp°¡ 10000À¸·Î return, ÃÖ´ë ½Ã°£À» Ã£±â À§ÇØ 
+				r = max(r, tmp); //ìœ„ ifë¬¸ì— ì•ˆ ë“¤ì–´ê°€ë©´ tmpê°€ 10000ìœ¼ë¡œ return, ìµœëŒ€ ì‹œê°„ì„ ì°¾ê¸° ìœ„í•´ 
 			}
 		}
 		return r;
 	}
-	if (depth == v) { //depth¿Í ¹ÙÀÌ·¯½º °¹¼ö°¡ °°´Ù¸é, ¸ğµÎ È®»êÀÌ ¾ÈµÇ¾úÀ» °æ¿ì
+	if (depth == v) { //depthì™€ ë°”ì´ëŸ¬ìŠ¤ ê°¯ìˆ˜ê°€ ê°™ë‹¤ë©´, ëª¨ë‘ í™•ì‚°ì´ ì•ˆë˜ì—ˆì„ ê²½ìš°
 		return 10000;
 	}
 
@@ -39,52 +53,52 @@ int main() {
 
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			scanf("%d", &lab[i][j]); //map¹Ş±â
+			scanf("%d", &lab[i][j]); //mapë°›ê¸°
 			if (lab[i][j] == 2) {
-				vir.push_back(make_pair(i, j)); //¹ÙÀÌ·¯½º À§Ä¡ ±â·Ï
+				vir.push_back(make_pair(i, j)); //ë°”ì´ëŸ¬ìŠ¤ ìœ„ì¹˜ ê¸°ë¡
 			}
 		}
 	}
 
-	// º® Ç¥±â
+	// ë²½ í‘œê¸°
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			if (lab[i][j] != 0) { //ºóÄ­ÀÌ ¾Æ´Ï¸é
-				for (int v = 0; v<vir.size(); v++) { //¹ÙÀÌ·¯½º °¹¼ö 
+			if (lab[i][j] != 0) { //ë¹ˆì¹¸ì´ ì•„ë‹ˆë©´
+				for (int v = 0; v<vir.size(); v++) { //ë°”ì´ëŸ¬ìŠ¤ ê°¯ìˆ˜ 
 					pol[v][i][j] = -1; //
 				}
 			}
 		}
 	}
 
-	// ¹ÙÀÌ·¯½º ¹Ì¸® ÀüÆÄ
+	// ë°”ì´ëŸ¬ìŠ¤ ë¯¸ë¦¬ ì „íŒŒ
 	for (int v = 0; v<vir.size(); v++) {
 		queue<pair<int, pair<int, int> > > q;
 		bool vis[50][50] = {};
-		q.push(make_pair(0, make_pair(vir[v].first, vir[v].second))); // 0,(¹ÙÀÌ·¯½º À§Ä¡)
-		vis[vir[v].first][vir[v].second] = true; //Ã³À½¿¡ ¹ÙÀÌ·¯½º À§Ä¡ ¹æ¹® Ç¥½Ã
-		while (!q.empty()) { //q°¡ ºô ¶§±îÁö
+		q.push(make_pair(0, make_pair(vir[v].first, vir[v].second))); // 0,(ë°”ì´ëŸ¬ìŠ¤ ìœ„ì¹˜)
+		vis[vir[v].first][vir[v].second] = true; //ì²˜ìŒì— ë°”ì´ëŸ¬ìŠ¤ ìœ„ì¹˜ ë°©ë¬¸ í‘œì‹œ
+		while (!q.empty()) { //qê°€ ë¹Œ ë•Œê¹Œì§€
 			int t = q.front().first; //first
 			int y = q.front().second.first; //y
 			int x = q.front().second.second; //x
 			q.pop();
-			for (int d = 0; d<4; d++) { //µ¿¼­³²ºÏ
+			for (int d = 0; d<4; d++) { //ë™ì„œë‚¨ë¶
 				int ay = y + dy[d];
 				int ax = x + dx[d];
-				if (ay >= 0 && ax >= 0 && ay < n && ax < n && lab[ay][ax] != 1 && !vis[ay][ax]) { //º®ÀÌ ¾Æ´Ï°í, ¹æ¹®ÇÏÁö ¾Ê¾Ò´Ù¸é
-					if (pol[v][ay][ax] != -1) //ºó °ø°£ÀÌ¶ó¸é
-						pol[v][ay][ax] = t + 1; //½Ã°£ ³Ö±â
-					vis[ay][ax] = true; //¹æ¹® Ç¥½Ã
-					q.push(make_pair(t + 1, make_pair(ay, ax))); //È®»êµÈ À§Ä¡¿¡ ½Ã°£°ú À§Ä¡ ³Ö±â
+				if (ay >= 0 && ax >= 0 && ay < n && ax < n && lab[ay][ax] != 1 && !vis[ay][ax]) { //ë²½ì´ ì•„ë‹ˆê³ , ë°©ë¬¸í•˜ì§€ ì•Šì•˜ë‹¤ë©´
+					if (pol[v][ay][ax] != -1) //ë¹ˆ ê³µê°„ì´ë¼ë©´
+						pol[v][ay][ax] = t + 1; //ì‹œê°„ ë„£ê¸°
+					vis[ay][ax] = true; //ë°©ë¬¸ í‘œì‹œ
+					q.push(make_pair(t + 1, make_pair(ay, ax))); //í™•ì‚°ëœ ìœ„ì¹˜ì— ì‹œê°„ê³¼ ìœ„ì¹˜ ë„£ê¸°
 				}
 			}
 		}
 	}
 
-	// m °³ ¼±ÅÃ ÈÄ, °è»ê
+	// m ê°œ ì„ íƒ í›„, ê³„ì‚°
 	int sel[10] = {};
-	int re = dfs(pol, n, m, vir.size(), 0, 0, sel); //È®»ê ´Ù ½ÃÄÑ ³õÀº ¹è¿­, ¹è¿­Å©±â, ¹ÙÀÌ·¯½º ¼±ÅÃ °¹¼ö, ¹ÙÀÌ·¯½º °¹¼ö,
-	if (re == 10000) //È®»êÀÌ ¾ÈµÈ Áö¿ªÀÌ ÀÖ´Ù¸é
+	int re = dfs(pol, n, m, vir.size(), 0, 0, sel); //í™•ì‚° ë‹¤ ì‹œì¼œ ë†“ì€ ë°°ì—´, ë°°ì—´í¬ê¸°, ë°”ì´ëŸ¬ìŠ¤ ì„ íƒ ê°¯ìˆ˜, ë°”ì´ëŸ¬ìŠ¤ ê°¯ìˆ˜,
+	if (re == 10000) //í™•ì‚°ì´ ì•ˆëœ ì§€ì—­ì´ ìˆë‹¤ë©´
 		printf("-1");
 	else
 		printf("%d", re);
