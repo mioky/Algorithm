@@ -1,3 +1,14 @@
+/* 2020.09.07
+ *
+ * BOJ 15684
+ * Completed!
+ * 
+ * 
+ * 
+ *
+ * Memory : 1112 KB
+ * Time   : 200 ms
+ */
 #include <cstdio>
 
 int N, M, H;
