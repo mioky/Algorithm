@@ -1,3 +1,15 @@
+/* 2020.09.07
+ *
+ * BOJ 15683
+ * Completed!
+ * 
+ * 
+ * 
+ *
+ * Memory : 1116 KB
+ * Time   : 0 ms
+ */
+
 #include <stdio.h>
 
 int n, m, a[8][8], all_cnt, ans;
