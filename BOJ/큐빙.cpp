@@ -24,7 +24,7 @@ void rev(int idx) {
 		board[2 - j][0][idx] = tmpp[j];
 	}
 }
-
+ 
 void U(char Ua, char Ud) {
 	char tmp[3];
 	for (int i = 0; i < 3; i++)tmp[i] = board[2][i][1];
