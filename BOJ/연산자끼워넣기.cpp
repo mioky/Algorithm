@@ -1,3 +1,14 @@
+/* 2020.08.31
+ *
+ * BOJ 14888
+ * Completed!
+ * 
+ * 
+ *
+ * Memory : 1112 KB
+ * Time   : 0 ms
+ */
+
 #include <cstdio>
 
 int N;
