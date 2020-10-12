@@ -1,0 +1,116 @@
+/* 2020.10.12
+*
+* BOJ 12100
+* Completed!
+*
+* map copy하는 방법
+* 동서남북 확인을 rotation함수를 사용하고, 한 방향으로만 이동시키면 됨!!
+* 백트래킹!
+*
+*
+* Memory : 1120 KB
+* Time   : 4 ms
+*/
+
+
+#include <cstdio>
+
+int N;
+int board[20][20];
+int back_board[5][20][20];
+int ans = 0;
+
+void rotation(int idx) {
+
+	int temp_board[20][20];
+
+	for (int i = 0; i < idx; i++) {
+		for (int j = 0; j < N; j++)
+			for (int k = 0; k < N; k++)
+				temp_board[k][N - 1 - j] = board[j][k];
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++)
+				board[i][j] = temp_board[i][j];
+	}
+	
+}
+
+void move() {
+	//이미 합쳐진 애는 합칠 수 없음
+	bool visit[20][20] = { false };
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (board[i][j] != 0) { //빈 칸이 아니라면
+				int mov_x = j;
+				while (true) {
+					mov_x += -1; //이동
+					if (mov_x < 0) {
+						board[i][mov_x + 1] = board[i][j];
+						if (mov_x + 1 != j) board[i][j] = 0;
+						break; //벽이라면
+					}
+					if (board[i][mov_x] == 0) continue; //빈 공간이라면
+					else {
+						if (board[i][mov_x] == board[i][j]) { //이동한 곳이 값이 같다면
+							if (!visit[i][mov_x]) {
+								board[i][mov_x] *= 2; //값 변경
+								visit[i][mov_x] = true;
+								board[i][j] = 0;
+							}
+							else { //이미 합쳐진 애라면
+								board[i][mov_x + 1] = board[i][j]; //이동한 곳이 값이 다르다면 그 값뒤에 넣기
+								if (mov_x + 1 != j) board[i][j] = 0;
+							}
+						}
+						else {
+							board[i][mov_x + 1] = board[i][j]; //이동한 곳이 값이 다르다면 그 값뒤에 넣기
+							if (mov_x + 1 != j) board[i][j] = 0;
+						}
+						break; //더 이상 움직일 수 없음. 다음 값으로 이동
+					}
+				}
+			}
+		}
+	}
+}
+
+void DFS(int depth) {
+
+	if (depth == 5) {
+		int result = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+ 				if (result < board[i][j]) result = board[i][j];
+			}
+		}
+		if (ans < result) ans = result;
+		return;
+	}
+	for (int i = 0; i < 4; i++) {
+		//0->왼쪽, 1 -> 아래, 2->오른, 3-> 위
+		for (int j = 0; j < N; j++)
+			for (int k = 0; k < N; k++)
+				back_board[depth][j][k] = board[j][k];
+		rotation(i); //회전
+		move(); //이동
+		DFS(depth + 1);
+		//백트래킹
+		for (int j = 0; j < N; j++)
+			for (int k = 0; k < N; k++)
+				board[j][k] = back_board[depth][j][k];
+
+	}
+
+}
+
+int main() {
+
+	scanf("%d", &N);
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
+			scanf("%d", &board[i][j]);
+
+	DFS(0);
+	printf("%d\n", ans);
+	return 0;
+}
